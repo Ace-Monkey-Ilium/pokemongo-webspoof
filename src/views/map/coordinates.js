@@ -5,7 +5,12 @@ import { observer } from 'mobx-react'
 import userLocation from '../../models/user-location.js'
 
 const handleChange = (idx) => action(({ target: { value } }) => {
-  userLocation[idx] = parseFloat(value)
+  try {
+    userLocation[idx] = parseFloat(value);
+  } catch (e) {
+    userLocation[idx] = value;
+  }
+
 })
 
 const Coordinates = observer(() =>
@@ -17,7 +22,7 @@ const Coordinates = observer(() =>
             { direction }
           </span>
           <input
-            type='text'
+            type='number'
             className='form-control'
             placeholder={ direction }
             aria-describedby='basic-addon1'

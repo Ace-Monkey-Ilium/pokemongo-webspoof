@@ -55,7 +55,7 @@ class Autopilot {
     const directionsRequest = {
       origin: { lat: userLocation[0], lng: userLocation[1] },
       destination: this.destination,
-      travelMode: maps.TravelMode.WALKING,
+      travelMode: this.speed > 14? (this.speed > 36? maps.TravelMode.DRIVING: maps.TravelMode.BICYCLING): maps.TravelMode.WALKING,
       unitSystem: maps.UnitSystem.METRIC
     }
 

@@ -32,6 +32,11 @@
       display: block;
     }
 
+    .card-block {
+      padding: 0.45rem;
+      max-height: 99px;
+    }
+
     .travel-mode {
       cursor: pointer;
 
@@ -40,8 +45,20 @@
       }
 
       .fa {
-        font-size: 60px;
-        margin-bottom: 10px;
+        font-size: 32px;
+        margin-bottom: 5px;
+      }
+    }
+    
+    .tag {
+        padding: 0.6em 0.4em;
+
+      input {
+        border: 0;
+        width: 2em;
+        margin: -2px 0;
+        background-color: transparent;
+        color: white;
       }
     }
 

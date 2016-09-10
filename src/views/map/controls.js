@@ -11,7 +11,7 @@ const lastMoveDirection = observable(null)
 
 const handleMove = action((direction) => {
   const speedCoeff = settings.speedLimit.get()
-  const move = (direction === 'UP' || direction === 'DOWN') ?
+  const move = (direction.indexOf('UP') !== -1 || direction.indexOf('DOWN') !== -1 ) ?
     random(0.0000300, 0.000070, true) / speedCoeff :
     random(0.0000700, 0.000070, true) / speedCoeff
 
@@ -21,6 +21,10 @@ const handleMove = action((direction) => {
   case 'RIGHT': { newLocation = [ userLocation[0], userLocation[1] + move ]; break }
   case 'DOWN': { newLocation = [ userLocation[0] - move, userLocation[1] ]; break }
   case 'UP': { newLocation = [ userLocation[0] + move, userLocation[1] ]; break }
+  case 'UP-LEFT': { newLocation = [ userLocation[0] + move, userLocation[1] - move ]; break }
+  case 'UP-RIGHT': { newLocation = [ userLocation[0] + move, userLocation[1] + move ]; break }
+  case 'DOWN-LEFT': { newLocation = [ userLocation[0] - move, userLocation[1] - move ]; break }
+  case 'DOWN-RIGHT': { newLocation = [ userLocation[0] - move, userLocation[1] + move ]; break }
   default: { newLocation = [ userLocation[0], userLocation[1] ] }
   }
 
@@ -28,21 +32,54 @@ const handleMove = action((direction) => {
 
   // we set `lastMoveDirection` to `null` for react re-render without class `.last`
   lastMoveDirection.set(null)
-  defer(action(() => lastMoveDirection.set(direction)))
+  if (direction.indexOf('LEFT') !== -1) defer(action(() => lastMoveDirection.set('LEFT')))
+  if (direction.indexOf('RIGHT') !== -1) defer(action(() => lastMoveDirection.set('RIGHT')))
+  if (direction.indexOf('DOWN') !== -1) defer(action(() => lastMoveDirection.set('DOWN')))
+  if (direction.indexOf('UP') !== -1) defer(action(() => lastMoveDirection.set('UP')))
 })
 
-window.addEventListener('keydown', ({ keyCode }) => {
-  switch (keyCode) {
-  case 65:
+window.addEventListener('keydown', (e) => {
+
+  if (e.target.tagName.toLowerCase() == 'input' || e.target.tagName.toLowerCase() == 'textarea') return undefined;
+  
+  switch (e.keyCode) {
   case 81:
-  case 37: { return handleMove('LEFT') }
-  case 87:
+  case 55: {
+      return handleMove('UP-LEFT');
+    }
   case 90:
-  case 38: { return handleMove('UP') }
+  case 49: {
+      return handleMove('DOWN-LEFT');
+    }
+  case 69:
+  case 57: {
+      return handleMove('UP-RIGHT');
+    }
+  case 67:
+  case 51: {
+      return handleMove('DOWN-RIGHT');
+    }
+  case 65:
+  case 52:
+  case 37: {
+      return handleMove('LEFT');
+    }
+  case 87:
+  case 56:
+  case 38: { 
+      return handleMove('UP');
+    }
   case 68:
-  case 39: { return handleMove('RIGHT') }
+  case 54:
+  case 39: {
+      return handleMove('RIGHT');
+    }
+  case 88:
   case 83:
-  case 40: { return handleMove('DOWN') }
+  case 50:
+  case 40: {
+      return handleMove('DOWN');
+    }
   default: return undefined
   }
 })

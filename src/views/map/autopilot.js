@@ -9,12 +9,18 @@ import cx from 'classnames'
 import autopilot from '../../models/autopilot.js'
 
 const travelModes = [
-  [ 'walk', 9, 'street-view' ],
-  [ 'cycling', 13, 'bicycle' ], // Credit to https://github.com/DJLectr0
-  [ 'subway', 50, 'subway' ],
-  [ 'truck', 80, 'truck' ],
-  [ 'car', 120, 'car' ],
-  [ 'teleport', '~', 'star' ]
+  [ 'slow-walk', 5, 'fa-child' ],
+  [ 'walk', 9, 'ion-android-walk' ],
+  [ 'egg hatching', 13, 'ion-egg' ], // Credit to https://github.com/DJLectr0
+  [ 'cycling', 18, 'fa-bicycle' ],
+  [ 'fast-cycling', 24, 'ion-android-bicycle' ],
+  [ 'motorcycle', 30, 'fa-motorcycle' ],
+  [ 'bus', 40, 'fa-bus' ],
+  [ 'subway', 50, 'fa-subway' ],
+  [ 'taxi', 65, 'fa-taxi' ],
+  [ 'truck', 80, 'fa-truck' ],
+  [ 'car', 120, 'fa-car' ],
+  [ 'teleport', '~', 'fa-flash' ]
 ]
 
 @observer
@@ -128,7 +134,7 @@ class Autopilot extends Component {
           <div
             className='edit btn btn-primary'
             onClick={ this.handleChangeSpeed }>
-            <i className={ `fa fa-${this.travelModeIcon}` } />
+            <i className={ `fa ${this.travelModeIcon}` } />
           </div>
         }
 
@@ -148,13 +154,14 @@ class Autopilot extends Component {
             { travelModes.map(([ name, speed, icon ]) =>
               <div
                 key={ name }
-                className={ `col-xs-4 text-center ${name}` }
+                className={ `col-xs-3 text-center ${name}` }
                 onClick={ this.handleSelectTravelMode(name, speed) }>
                 <div className={ cx('card travel-mode', { selected: name === this.travelMode }) }>
                   <div className='card-block'>
-                    <div className={ `fa fa-${icon}` } />
+                    <div className={ `fa ${icon}` } />
                     <div className='desc'>
-                      <strong>{ capitalize(name) } </strong>
+                      <strong>{ capitalize(name) }</strong>
+                      <br/>
                       <span>{ speed } { speed !== '~' && 'km/h' }</span>
                     </div>
                   </div>

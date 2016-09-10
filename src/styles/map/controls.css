@@ -12,6 +12,12 @@
   bottom: 45px;
   height: 115px;
   width: 110px;
+  opacity: .4;
+  transition: opacity .25s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
 
   .octicon {
     cursor: pointer;

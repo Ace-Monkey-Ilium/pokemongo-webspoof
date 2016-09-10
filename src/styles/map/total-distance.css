@@ -6,4 +6,10 @@
   left: 250px;
   border-radius: 3px;
   padding: 10px;
+  opacity: .4;
+  transition: opacity .25s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
 }
