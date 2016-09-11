@@ -11,7 +11,7 @@ import autopilot from '../../models/autopilot.js'
 const travelModes = [
   [ 'slow-walk', 5, 'fa-child' ],
   [ 'walk', 9, 'ion-android-walk' ],
-  [ 'egg hatching', 13, 'ion-egg' ], // Credit to https://github.com/DJLectr0
+  [ 'egg hatching', 12, 'ion-egg' ], // Credit to https://github.com/DJLectr0
   [ 'cycling', 18, 'fa-bicycle' ],
   [ 'fast-cycling', 24, 'ion-android-bicycle' ],
   [ 'motorcycle', 30, 'fa-motorcycle' ],
@@ -71,13 +71,19 @@ class Autopilot extends Component {
       .catch(() => this.placesAutocomplete.setVal(null))
 
   @action handleStartAutopilot = () => {
+    const { destination: { lat, lng } } = autopilot
+
+    autopilot.scheduleTrip(lat, lng)
+      .then(() => { 
+    
+        // TODO: Refactor it's ugly
+        // update `autopilot` data
+        autopilot.steps = JSON.parse(JSON.stringify(autopilot.accurateSteps))
+        autopilot.start()
+      })
+
     // reset modal state
     this.placesAutocomplete.setVal(null)
-
-    // TODO: Refactor it's ugly
-    // update `autopilot` data
-    autopilot.steps = JSON.parse(JSON.stringify(autopilot.accurateSteps))
-    autopilot.start()
 
     this.isModalOpen = false
   }

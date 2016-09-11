@@ -49,6 +49,7 @@ class Autopilot {
   findDirectionPath = (lat, lng) => new Promise((resolve, reject) => {
     const { google: { maps } } = window
     const speed = this.speed * 7200 // to km/h
+    const travelMode = speed > 14? (speed > 36? 'DRIVING': 'BICYCLING'): 'WALKING'
     this.destination = { lat, lng }
 
     // prepare `directionsRequest` to google map
@@ -56,7 +57,7 @@ class Autopilot {
     const directionsRequest = {
       origin: { lat: userLocation[0], lng: userLocation[1] },
       destination: this.destination,
-      travelMode: this.speed > 14? (this.speed > 36? maps.TravelMode.DRIVING: maps.TravelMode.BICYCLING): maps.TravelMode.WALKING,
+      travelMode: travelMode,
       unitSystem: maps.UnitSystem.METRIC
     }
 
