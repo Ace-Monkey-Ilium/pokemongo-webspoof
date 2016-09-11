@@ -12,7 +12,7 @@ class Autopilot {
   @observable paused = false
   @observable running = false // is the autopilot running
   @observable steps = []
-  @observable speed = 9 / 3600 // 0.0025 ~= 2,5m/s ~= 9 km/h
+  @observable speed = 9 / 7200 // 0.0025 ~= 2,5m/s ~= 9 km/h
   @observable distance = 0 // remaining distance to arrival in km
   @observable rawOverviewPath = null // save last query to re-calculate optimized route
   @observable destination = { lat: null, lng: null };
@@ -31,7 +31,7 @@ class Autopilot {
   }
 
   @computed get time() {
-    const speed = this.speed * 3600 // to km/h
+    const speed = this.speed * 7200 // to km/h
     const hours = Math.floor(this.distance / speed)
     const minutes = Math.floor(((this.distance / speed) * 60) % 60)
 
@@ -48,6 +48,7 @@ class Autopilot {
 
   findDirectionPath = (lat, lng) => new Promise((resolve, reject) => {
     const { google: { maps } } = window
+    const speed = this.speed * 7200 // to km/h
     this.destination = { lat, lng }
 
     // prepare `directionsRequest` to google map
@@ -147,7 +148,7 @@ class Autopilot {
 
         // move on to the next location
         if (this.steps.length !== 0) {
-          this.timeout = setTimeout(moveNextPoint, 1000)
+          this.timeout = setTimeout(moveNextPoint, 500 + parseInt((Math.random() * 51) -26))
         } else {
           this.stop()
         }

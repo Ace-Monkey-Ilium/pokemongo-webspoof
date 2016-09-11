@@ -89,7 +89,7 @@ class Autopilot extends Component {
   }
 
   @action handleSelectTravelMode = (name, speed) => () => {
-    autopilot.speed = speed / 3600
+    autopilot.speed = speed / 7200
     this.travelMode = name
   }
 
