@@ -36,7 +36,7 @@ const getPokemonsList = () => orderBy(reduce(pokemonsList, (res, value, key) => 
     } ]
   }
   return res
-}, []), [ 'count', 'inactive' ], [ 'desc', 'asc' ])
+}, []), [ 'inactive', 'count' ], [ 'asc', 'desc' ])
 
 const ExcludedPokemons = observer(() =>
   <div className='excluded-pokemons'>
@@ -57,7 +57,7 @@ const ExcludedPokemons = observer(() =>
             src={ `data:image/png;base64,${image}` } />
           { capitalize(pokemon) }
           <small> #{ Object.keys(pokemonsList).indexOf(pokemon) + 1 } </small>
-          { count > 1 && <span className='pull-right tag tag-primary'>{ count }</span> }
+          { count > 0 && <span className='pull-right tag tag-primary'>{ count }</span> }
         </li>) }
     </ul>
   </div>
