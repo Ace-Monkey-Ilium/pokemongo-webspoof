@@ -14,6 +14,7 @@ const handleMove = action((direction) => {
   const move = (direction.indexOf('UP') !== -1 || direction.indexOf('DOWN') !== -1 ) ?
     random(0.0000300, 0.000070, true) / speedCoeff :
     random(0.0000700, 0.000070, true) / speedCoeff
+  const diagonal_move = move * .7937
 
   let newLocation
   switch (direction) {
@@ -21,10 +22,10 @@ const handleMove = action((direction) => {
   case 'RIGHT': { newLocation = [ userLocation[0], userLocation[1] + move ]; break }
   case 'DOWN': { newLocation = [ userLocation[0] - move, userLocation[1] ]; break }
   case 'UP': { newLocation = [ userLocation[0] + move, userLocation[1] ]; break }
-  case 'UP-LEFT': { newLocation = [ userLocation[0] + move, userLocation[1] - move ]; break }
-  case 'UP-RIGHT': { newLocation = [ userLocation[0] + move, userLocation[1] + move ]; break }
-  case 'DOWN-LEFT': { newLocation = [ userLocation[0] - move, userLocation[1] - move ]; break }
-  case 'DOWN-RIGHT': { newLocation = [ userLocation[0] - move, userLocation[1] + move ]; break }
+  case 'UP-LEFT': { newLocation = [ userLocation[0] + diagonal_move, userLocation[1] - diagonal_move ]; break }
+  case 'UP-RIGHT': { newLocation = [ userLocation[0] + diagonal_move, userLocation[1] + diagonal_move ]; break }
+  case 'DOWN-LEFT': { newLocation = [ userLocation[0] - diagonal_move, userLocation[1] - diagonal_move ]; break }
+  case 'DOWN-RIGHT': { newLocation = [ userLocation[0] - diagonal_move, userLocation[1] + diagonal_move ]; break }
   default: { newLocation = [ userLocation[0], userLocation[1] ] }
   }
 
