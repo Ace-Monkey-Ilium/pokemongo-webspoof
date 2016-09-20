@@ -10,8 +10,8 @@ import autopilot from '../../models/autopilot.js'
 
 const travelModes = [
   [ 'slow-walk', 5, 'fa-child' ],
-  [ 'walk', 9, 'ion-android-walk' ],
-  [ 'egg hatching', 12, 'ion-egg' ], // Credit to https://github.com/DJLectr0
+  [ 'walk', 8, 'ion-android-walk' ],
+  [ 'egg hatching', 10, 'ion-egg' ], // Credit to https://github.com/DJLectr0
   [ 'cycling', 18, 'fa-bicycle' ],
   [ 'fast-cycling', 24, 'ion-android-bicycle' ],
   [ 'motorcycle', 30, 'fa-motorcycle' ],
