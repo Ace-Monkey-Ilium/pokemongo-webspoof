@@ -9,7 +9,6 @@ pokemongo-webspoof-*
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-xcode-project/pokemon-webspoof.xcodeproj/project.pbxproj
 
 ## Build generated
 build/
